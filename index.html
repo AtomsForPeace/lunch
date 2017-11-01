@@ -33,7 +33,7 @@
 	</body>
 	<script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
-		var add_restaurant = function(restaurant) {
+		function add_restaurant(restaurant) {
 			name = restaurant[0]
 			vote = restaurant[1]
 			$('.left').append(
@@ -45,6 +45,12 @@
 		}
 		var ws = new WebSocket(
 			'ws://' + document.domain + ':' + location.port + '/update')
+
+		window.setInterval(function() {
+			data = JSON.stringify({'message': 'online'})
+			ws.send(data);
+		}, 1000);
+
 		$.ajax({
 			url: '/restaurants',
 			success: function(data) {
@@ -52,7 +58,8 @@
 				data['message'].map(r => add_restaurant(r))
 				$('.restaurant').each(function(index) {
 					$(this).click(function() {
-						ws.send($(this).text());
+						ws.send(JSON.stringify(
+							{"message": $(this).text()}));
 					})
 				})
 			},
