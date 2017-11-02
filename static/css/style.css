@@ -1,0 +1,19 @@
+#container {
+  width: 50%;
+}
+.left {
+  float: left;
+  width: 50%;
+}
+.right {
+  float: right;
+  width: 50%;
+}
+.row {
+  padding: 3px;
+  border-left: 1px solid orange;
+  border-bottom: 1px solid orange;
+}
+.restaurant {
+  cursor: pointer;
+}

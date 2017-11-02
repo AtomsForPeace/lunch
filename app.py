@@ -11,6 +11,7 @@ from websockets import ConnectionClosed
 
 
 app = Sanic(__name__)
+app.static('/static', './static')
 
 
 restaurant_dict = {
@@ -76,4 +77,4 @@ async def handle_vote(ws, restaurant, hostname):
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(host='0.0.0.0')
