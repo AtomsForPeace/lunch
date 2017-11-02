@@ -57,7 +57,7 @@ async def update(request, ws):
             clients[hostname] = ws
         else:
             restaurant = data['message']
-            handle_vote(ws, restaurant, hostname)
+            await handle_vote(ws, restaurant, hostname)
 
 
 async def handle_vote(ws, restaurant, hostname):
