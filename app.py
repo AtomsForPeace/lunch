@@ -23,8 +23,9 @@ restaurant_dict = {
     'Bild': 0,
     'Schroedi': 0,
     'Burger': 0,
-    'Gruene': 0,
+    'Gruen/Grau': 0,
     'Audi': 0,
+    'Pinse': 0,
 }
 clients = {}
 voters = {r: set() for r in restaurant_dict}
@@ -63,15 +64,14 @@ async def update(request, ws):
 
 async def handle_vote(ws, restaurant, hostname):
     this_vote = voters.get(restaurant)
-    if restaurant and not this_vote:
-        if hostname not in this_vote:
-            voters[restaurant].add(hostname)
-            restaurant_dict[restaurant] += 1
-            for client in clients.values():
-                try:
-                    await client.send(restaurant)
-                except ConnectionClosed:
-                    del clients[client]
+    if hostname not in this_vote:
+        voters[restaurant].add(hostname)
+        restaurant_dict[restaurant] += 1
+        for client in clients.values():
+            try:
+                await client.send(restaurant)
+            except ConnectionClosed:
+                del clients[client]
     else:
         await ws.send('406')
 
