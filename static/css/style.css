@@ -1,5 +1,7 @@
 #container {
   width: 50%;
+	font-size: 20px;
+	text-align: center;
 }
 .left {
   float: left;
@@ -10,7 +12,7 @@
   width: 50%;
 }
 .row {
-  padding: 3px;
+  padding: 30px;
   border-left: 1px solid orange;
   border-bottom: 1px solid orange;
 }
