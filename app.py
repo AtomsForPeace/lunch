@@ -3,7 +3,6 @@
 # File name: app.py
 
 import json
-from socket import gethostname
 from operator import itemgetter
 from sanic import Sanic
 from sanic import response
@@ -54,12 +53,12 @@ async def update(request, ws):
     while True:
         data = json.loads(await ws.recv())
         restaurant = None
-        hostname = gethostname()
+        client_id = request.ip
         if data['message'] == 'online':
-            clients[hostname] = ws
+            clients[client_id] = ws
         else:
             restaurant = data['message']
-            await handle_vote(ws, restaurant, hostname)
+            await handle_vote(ws, restaurant, client_id)
 
 
 async def handle_vote(ws, restaurant, hostname):
